@@ -1,0 +1,39 @@
+@font-face {
+	font-family: "LyftPro-Regular";
+	src: local("LyftPro"),
+		url(../../fonts/LyftPro/LyftPro-Regular.otf) format("opentype");
+}
+@font-face {
+	font-family: "LyftPro-Light";
+	src: local("LyftPro"),
+		url(../../fonts/LyftPro/LyftPro-Light.otf) format("opentype");
+}
+
+@font-face {
+	font-family: "LyftPro-Bold";
+	src: local("LyftPro"),
+		url(../../fonts/LyftPro/LyftPro-Bold.otf) format("opentype");
+}
+
+body {
+	font-family: LyftPro-Regular;
+	background-color: white;
+}
+.nav-item {
+	background-color: #c8cbfc;
+	border-color: #604cff;
+	color: white;
+	transition: 0.2s ease-in-out;
+}
+
+.nav-tabs .nav-link.active {
+	color: white;
+	background-color: #420499;
+	border-color: #420499;
+	box-shadow: none;
+}
+a:hover {
+	color: white;
+	text-decoration: underline;
+	transform: scale(1.05);
+}

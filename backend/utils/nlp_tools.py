@@ -1,4 +1,3 @@
-import os
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pandas as pd
 from spacy.matcher import PhraseMatcher

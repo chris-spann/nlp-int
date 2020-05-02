@@ -1,0 +1,48 @@
+.sent-card {
+	background-color: #f9f9fa;
+	border-color: #7f7f7f;
+}
+.sent-card text {
+	font-family: LyftPro-Regular;
+	font-size: 1.3rem;
+}
+
+#cardtitle {
+	font-family: LyftPro-Bold;
+	font-size: 1.6rem;
+	margin-bottom: 0;
+}
+
+#sentbutton {
+	background-color: #604cff;
+	border-color: #604cff;
+	border-radius: 1.5rem;
+	transition: 0.2s ease-in-out;
+}
+#sentbutton:focus {
+	background-color: #420499;
+	border-color: #420499;
+	box-shadow: 0 0 4px #420499;
+	transform: scale(1.03);
+}
+#sentbutton:hover {
+	background-color: #420499;
+	border-color: #420499;
+	box-shadow: 0 0 4px #420499;
+	transform: scale(1.03);
+}
+
+#sentarea {
+	border-radius: 1.5rem;
+	transition: 0.2s ease-in-out;
+}
+#sentarea:hover {
+	border-radius: 1.5rem;
+	box-shadow: 0 0 4px #420499;
+	transform: scale(1.03);
+}
+#sentarea:focus {
+	border-color: #420499;
+	box-shadow: 0 0 4px #420499;
+	transform: scale(1.03);
+}
