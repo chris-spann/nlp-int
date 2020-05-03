@@ -1,3 +1,8 @@
+from collections import Counter
+from nltk import ngrams, word_tokenize
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+from nltk.stem import PorterStemmer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pandas as pd
 from spacy.matcher import PhraseMatcher
@@ -35,25 +40,58 @@ def calc_sentiment(string):
     return analyzer.polarity_scores(string)
 
 
-def break_camel(string):
-    lst = list(string)
-    new_lst = []
-    for i in lst:
-        if i.islower():
-            new_lst.append(i)
-        else:
-            new_lst.append(' ')
-            new_lst.append(i)
-    return ''.join(new_lst)
+class FrequencyReport:
+    def __init__(self, filepath, output_method="report"):
+        self.filepath = filepath
+        self.output_method = output_method
+        self.data = None
+        self._pre_process()
+        self.processed = self.data.copy(deep=True)
+        self.get_word_freq()
+        self.word_freq_json = self.get_word_freq().to_json()
+        self.get_bigram_freq()
+        self.word_bigram_json = self.get_bigram_freq().to_json()
+        self.get_trigram_freq()
+        self.word_trigram_json = self.get_trigram_freq().to_json()
 
+    def _pre_process(self):
+        file = pd.read_csv(self.filepath)
+        txt = file['message'].to_string()
+        tokens = word_tokenize(txt.lower())
+        english_stopwords = stopwords.words('english')
+        stemmer = PorterStemmer()
+        token_list_stemmed = []
+        for token in tokens:
+            stemmed_token = stemmer.stem(token)
+            token_list_stemmed.append(stemmed_token)
+        stops = [
+            x for x in token_list_stemmed if x not in set(english_stopwords)]
+        data = [item for item in stops if len(item) > 2]
+        self.data = data
 
-def print_100():
-    for i in range(1, 101):
-        if ((i % 5 == 0) and (i % 3 == 0)):
-            print('FizzBuzz')
-        elif i % 5 == 0:
-            print('Buzz')
-        elif i % 3 == 0:
-            print('Fizz')
-        else:
-            print(i)
+    def get_word_freq(self):
+        fdist = FreqDist(self.processed)
+        top_100 = fdist.most_common(100)
+        return pd.DataFrame(
+            top_100, columns=['token', 'count']).head(20)
+
+    def get_bigram_freq(self):
+        bigrams = list(ngrams(self.processed, 2))
+        frequencies = Counter(bigrams)
+        final = []
+        for token, count in frequencies.most_common(100):
+            lister = token, count
+            final.append(lister)
+        return pd.DataFrame(
+            final, columns=['bigram', 'count']).head(20)
+
+    def get_trigram_freq(self):
+        trigrams = list(ngrams(self.processed, 3))
+        frequencies = Counter(trigrams)
+        final = []
+        for token, count in frequencies.most_common(100):
+            lister = token, count
+            final.append(lister)
+        return pd.DataFrame(
+            final, columns=['trigram', 'count']).head(20)
+

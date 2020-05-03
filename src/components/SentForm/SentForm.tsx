@@ -6,11 +6,7 @@ import "./SentForm.css"
 
 function SentForm(): JSX.Element {
 	const [text, setText] = useState("")
-	const [searchText, setSearchText] = useState("")
 	const [comp, setComp] = useState(0)
-	const [pos, setPos] = useState(0)
-	const [neu, setNeu] = useState(0)
-	const [neg, setNeg] = useState(0)
 
 	var guageOptions = {
 		min: -1.0,
@@ -42,11 +38,8 @@ function SentForm(): JSX.Element {
 			.then(res => {
 				console.log("Received: " + res.data.text)
 				console.log("Score: " + res.data.comp)
-				setSearchText(res.data.searchText)
+				setText(res.data.searchText)
 				setComp(parseFloat(res.data.comp))
-				setPos(res.data.pos)
-				setNeu(res.data.neu)
-				setNeg(res.data.neg)
 			})
 			.catch(error => {
 				console.log(error)
@@ -58,10 +51,10 @@ function SentForm(): JSX.Element {
 		<Fragment>
 			<Card
 				className="sent-card text-center"
-				style={{ width: "25rem", height: "38rem" }}>
+				style={{ width: "26rem", height: "38rem" }}>
 				<Card.Body>
 					<div className="App">
-						<Card.Title id="cardtitle">Vader Sentiment Analyzer</Card.Title>
+						<Card.Title id="cardtitle">Sentiment</Card.Title>
 						<br />
 						<Form onSubmit={formSubmit}>
 							<Form.Control
@@ -69,10 +62,7 @@ function SentForm(): JSX.Element {
 								name="text"
 								id="sentarea"
 								value={text}
-								// rows=3
-								// cols=10
 								data-gramm="false"
-								// maxheight="200px"
 								placeholder="Type something!"
 								onChange={handleChange}
 								style={{
@@ -87,10 +77,9 @@ function SentForm(): JSX.Element {
 						</Form>
 						<hr />
 						<Chart
-							className="container"
 							chartType="Gauge"
 							width="100%"
-							height="400px"
+							height="27rem"
 							data={[
 								["Label", "Value"],
 								["SENTIMENT", comp],

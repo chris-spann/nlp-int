@@ -1,5 +1,5 @@
 from flask import Flask, request
-from utils.nlp_tools import break_camel, calc_sentiment, MatchReport
+from utils.nlp_tools import calc_sentiment, MatchReport, FrequencyReport
 
 app = Flask(__name__)
 
@@ -32,7 +32,12 @@ def get_matches():
             'phrases': phrases}
 
 
-@app.route('/camel_input', methods=['POST', 'GET'])
-def camel_input():
-    break_camel()
-    return {"sentiment": "test"}
+@app.route('/get_freq', methods=['POST', 'GET'])
+def get_freq():
+    req = request.get_json()
+    filepath = req['filepath']
+    fr = FrequencyReport(filepath)
+    return {'word_freq': fr.word_freq_json,
+            'bigram_freq': fr.bigram_freq_json,
+            'trigram_freq': fr.trigram_freq_json
+            }
