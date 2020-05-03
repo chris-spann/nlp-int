@@ -11,6 +11,19 @@ import spacy
 analyzer = SentimentIntensityAnalyzer()
 
 
+class Sentiment:
+    def __init__(self, string):
+        self.string = string
+        self.results = self.calc_sentiment()
+        self.comp = self.results['compound']
+        self.pos = self.results['pos']
+        self.neu = self.results['neu']
+        self.neg = self.results['neg']
+
+    def calc_sentiment(self):
+        return analyzer.polarity_scores(self.string)
+
+
 class MatchReport:
     def __init__(self, filepath, phrases):
         self.filepath = filepath
@@ -34,10 +47,6 @@ class MatchReport:
         for i in range(len(msgs)):
             if len(matcher(nlp(str(msgs[i]).lower()))) == 0:
                 self.matches.drop(i, inplace=True)
-
-
-def calc_sentiment(string):
-    return analyzer.polarity_scores(string)
 
 
 class FrequencyReport:

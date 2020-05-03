@@ -1,5 +1,5 @@
 from flask import Flask, request
-from utils.nlp_tools import calc_sentiment, MatchReport, FrequencyReport
+from utils.nlp_tools import Sentiment, MatchReport, FrequencyReport
 
 app = Flask(__name__)
 
@@ -8,18 +8,13 @@ app = Flask(__name__)
 def get_sentiment():
     req = request.get_json()
     text = req['text']
-    pos = str(calc_sentiment(text)['pos'])
-    comp = str(calc_sentiment(text)['compound'])
-    neu = str(calc_sentiment(text)['neu'])
-    neg = str(calc_sentiment(text)['neg'])
-
+    sent = Sentiment(text)
     return {
         "text": text,
-        "searchText": text,
-        "comp": comp,
-        "pos": pos,
-        "neu": neu,
-        "neg": neg}
+        "comp": sent.comp,
+        "pos": sent.pos,
+        "neu": sent.neu,
+        "neg": sent.neg}
 
 
 @app.route('/get_matches', methods=['GET', 'POST'])
