@@ -20,7 +20,7 @@ def get_sentiment():
 @app.route('/get_matches', methods=['GET', 'POST'])
 def get_matches():
     req = request.get_json()
-    phrases = str(req['phrases'])
+    phrases = req['phrases']
     filepath = req['filepath']
     mr = MatchReport(filepath, phrases)
     return {'matches': mr.matches_json,
