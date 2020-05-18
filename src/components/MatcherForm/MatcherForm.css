@@ -13,14 +13,21 @@
   border-radius: 1.5rem;
   transition: 0.2s ease-in-out;
 }
-#matchbutton:focus {
+#matchbutton:active {
   background-color: #420499;
+  border-color: #420499;
+  box-shadow: 0 0 4px #420499;
+  transition: 0.1s ease-in-out;
+  transform: scale(1.03);
+}
+#matchbutton:focus {
+  /* background-color: #420499; */
   border-color: #420499;
   box-shadow: 0 0 4px #420499;
   transform: scale(1.03);
 }
 #matchbutton:hover {
-  background-color: #420499;
+  /* background-color: #420499; */
   border-color: #420499;
   box-shadow: 0 0 4px #420499;
   transform: scale(1.03);
@@ -52,4 +59,7 @@
 #filePathField:hover {
   transform: scale(1.03);
   box-shadow: 0 0 4px #420499;
+}
+ul {
+  list-style-type: none;
 }

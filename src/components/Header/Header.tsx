@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import logo from './logo.svg';
 import './Header.css';
 
-function Header(): JSX.Element {
+const Header: React.FC = () => {
   return (
     <>
       <Navbar className="navi">
@@ -20,5 +20,5 @@ function Header(): JSX.Element {
       </Navbar>
     </>
   );
-}
+};
 export default Header;

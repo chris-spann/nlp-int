@@ -1,17 +1,23 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import './Footer.css';
 
-function Footer(): JSX.Element {
+const Footer: React.FC = () => {
   return (
     <>
-      <Navbar fixed="bottom" className="navi">
-        <Navbar.Brand href="/">
-          {' '}
-          <p className="d-inline-block align-bottom txt">Outreach Innovation</p>
-        </Navbar.Brand>
+      <Navbar fixed="bottom" className="foot">
+        <Nav.Item>
+          <a
+            href="https://sites.google.com/lyft.com/outreachinnovation/home?authuser=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="float-right footer"
+          >
+            Outreach Innovation
+          </a>
+        </Nav.Item>
       </Navbar>
     </>
   );
-}
+};
 export default Footer;

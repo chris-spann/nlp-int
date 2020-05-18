@@ -1,7 +1,22 @@
-.navi {
+.foot {
   background-color: #420499;
 }
 
-.txt {
+.footer {
+  /* color: white; */
+  text-decoration: none;
+  transform: none;
+}
+.footer:hover {
   color: white;
+  text-decoration: none;
+  transform: none;
+}
+a {
+  color: white;
+  background-color: #420499;
+}
+a:hover {
+  text-decoration: none;
+  transform: none;
 }

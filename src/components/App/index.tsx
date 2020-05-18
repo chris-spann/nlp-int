@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer';
 import FrequencyReportForm from '../FrequencyReportForm/FrequencyReportForm';
 import SentForm from '../SentForm/SentForm';
 import MatcherForm from '../MatcherForm/MatcherForm';
+// import TestApi from '../TestApi/TestApi';
 import { Tab, Tabs } from 'react-bootstrap';
 import './index.css';
 
@@ -21,6 +22,9 @@ const App: React.FC = () => {
         <Tab eventKey="SentForm" title="Sentiment">
           <SentForm />
         </Tab>
+        {/* <Tab eventKey="TestApi" title="TestApi">
+          <TestApi title="Abbi" />
+        </Tab> */}
       </Tabs>
       <Footer />
     </div>

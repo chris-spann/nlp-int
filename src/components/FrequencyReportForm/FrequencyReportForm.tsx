@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, CardGroup, Button, Form } from 'react-bootstrap';
 import './FrequencyReportForm.css';
 
-const FrequencyReportForm = () => {
+const FrequencyReportForm: React.FC = () => {
   const [filePath, setFilePath] = useState('');
   const [wordFreq, setWordFreq] = useState('');
   const [bigramFreq, setBigramFreq] = useState('');
@@ -47,7 +47,7 @@ const FrequencyReportForm = () => {
           <div className="App">
             <Card.Title id="cardtitle">FrequencyReport</Card.Title>
             <br />
-            <Form onSubmit={formSubmit}>
+            <Form onSubmit={formSubmit} spellCheck="false">
               <Form.Control
                 type="text"
                 id="filePathField"

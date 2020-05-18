@@ -33,7 +33,7 @@ class MatchReport:
                                 usecols=['lyft_id', 'message'])
         self.matches = self.data.copy(deep=True)
         self.get_matches()
-        self.matches_json = self.matches.to_json()
+        self.matches_json = self.matches.to_json(orient="records")
 
     def get_matches(self):
         nlp = spacy.load('en_core_web_sm')

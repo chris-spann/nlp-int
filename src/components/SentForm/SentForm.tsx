@@ -4,7 +4,7 @@ import { Card, CardGroup, Button, Form } from 'react-bootstrap';
 import Chart from 'react-google-charts';
 import './SentForm.css';
 
-function SentForm(): JSX.Element {
+const SentForm: React.FC = () => {
   const [text, setText] = useState('');
   const [comp, setComp] = useState(0);
   const [showGuage, setShowGuage] = useState(false);
@@ -133,5 +133,5 @@ function SentForm(): JSX.Element {
       </CardGroup>
     </>
   );
-}
+};
 export default SentForm;
