@@ -61,6 +61,12 @@ const FrequencyReportForm: React.FC = () => {
               </Button>
             </Form>
             <hr />
+            <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
+            <br />
+            <br />
+            <Card.Text>
+              This is the FrequencyReport. Upload a file to analyze.
+            </Card.Text>
           </div>
         </Card.Body>
       </Card>

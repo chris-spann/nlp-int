@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Card, CardGroup, Button, Form } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
+import Chart from 'react-google-charts';
 import './MatcherForm.css';
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 const MatcherForm: React.FC<Props> = (matches, phrases) => {
   const [searchPhrases, setSearchPhrases] = useState('');
   const [filePath, setFilePath] = useState('');
+  const [poolSize, setPoolSize] = useState(0);
   const [response, setResponse] = useState([] as any);
 
   const handlePhrasesChange: React.ChangeEventHandler = (event: any) => {
@@ -36,6 +38,7 @@ const MatcherForm: React.FC<Props> = (matches, phrases) => {
       .then((res) => {
         setResponse(JSON.parse(res.data.matches));
         setSearchPhrases(res.data.phrases);
+        setPoolSize(res.data.numCon);
         console.log(res.status);
         console.log(res.data.matches);
         console.log('Number of matches: ' + res.data.matches.length);
@@ -96,6 +99,13 @@ const MatcherForm: React.FC<Props> = (matches, phrases) => {
                 </Button>
               </Form>
               <hr />
+              <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
+              <br />
+              <br />
+              <Card.Text>
+                This is the PhraseMatcher. You can enter some phrases you'd like
+                to search for here.
+              </Card.Text>
             </div>
           </Card.Body>
         </Card>
@@ -106,14 +116,37 @@ const MatcherForm: React.FC<Props> = (matches, phrases) => {
           <Card.Body>
             <Card.Title id="cardtitle">Results</Card.Title>
             <br />
-            <br />
-            <p>Phrases: {searchPhrases}</p>
-            <p>Number of Matches: {response.length}</p>
+            <Card.Text>Phrases: {searchPhrases}</Card.Text>
+            <Card.Text>Matches: {response.length}</Card.Text>
+            <Card.Text>Convos Scanned: {poolSize}</Card.Text>
+
             <hr />
-            <br />
-            <br />
-            <br />
-            <br />
+            <Chart
+              className="pie"
+              chartType="PieChart"
+              loader={<div>Loading Chart</div>}
+              width="24rem"
+              height="23rem"
+              data={[
+                ['Label', 'Value'],
+                ['Matches', response.length],
+                ['Non-Matches', poolSize - response.length],
+              ]}
+              options={{
+                // title: '',
+                // Just add this option
+                is3D: true,
+                // fontSize: 8,
+                legendTextStyle: {
+                  color: 'black',
+                  // fontSize: 7,
+                },
+                pieSliceTextStyle: {
+                  color: 'black',
+                  // fontSize: 8,
+                },
+              }}
+            />
           </Card.Body>
         </Card>
         <Card
@@ -127,14 +160,16 @@ const MatcherForm: React.FC<Props> = (matches, phrases) => {
               columns={columns}
               data={response}
               dense={true}
-              overflowY={true}
               fixedHeader
               fixedHeaderScrollHeight="700px"
+              overflowY={true}
               striped={true}
             />
-            <Button id="matchbutton" variant="primary" type="submit">
-              Download
-            </Button>
+            <Form>
+              <Button id="matchbutton" variant="primary" type="submit">
+                Download
+              </Button>
+            </Form>
           </Card.Body>
         </Card>
       </CardGroup>

@@ -24,7 +24,8 @@ def get_matches():
     filepath = req['filepath']
     mr = MatchReport(filepath, phrases)
     return {'matches': mr.matches_json,
-            'phrases': phrases}
+            'phrases': phrases,
+            'numCon': mr.num_con}
 
 
 @app.route('/get_freq', methods=['POST', 'GET'])

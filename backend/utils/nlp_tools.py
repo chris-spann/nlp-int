@@ -33,6 +33,7 @@ class MatchReport:
                                 usecols=['lyft_id', 'message'])
         self.matches = self.data.copy(deep=True)
         self.get_matches()
+        self.num_con = len(self.data)
         self.matches_json = self.matches.to_json(orient="records")
 
     def get_matches(self):
@@ -103,4 +104,3 @@ class FrequencyReport:
             final.append(lister)
         return pd.DataFrame(
             final, columns=['trigram', 'count']).head(20)
-

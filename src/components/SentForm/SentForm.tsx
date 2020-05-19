@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Card, CardGroup, Button, Form } from 'react-bootstrap';
+import { Card, CardGroup, CardDeck, Button, Form } from 'react-bootstrap';
 import Chart from 'react-google-charts';
 import './SentForm.css';
 
@@ -91,22 +91,14 @@ const SentForm: React.FC = () => {
                 </div>
               </Form>
               <hr />
-
-              {showGuage && (
-                <div className="d-flex justify-content-center">
-                  <Chart
-                    className="gauge"
-                    chartType="Gauge"
-                    width="300px"
-                    height="300px"
-                    data={[
-                      ['Label', 'Value'],
-                      ['SENTIMENT', comp],
-                    ]}
-                    options={guageOptions}
-                  />
-                </div>
-              )}
+              <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
+              <br />
+              <br />
+              <Card.Text>
+                This is the SentimentAnalyzer. You can enter some tet you'd like
+                to analyze above. Flip the switch to Batch to upload a .csv to
+                analyze.
+              </Card.Text>
             </div>
           </Card.Body>
         </Card>
@@ -117,9 +109,22 @@ const SentForm: React.FC = () => {
           <Card.Body>
             <Card.Title id="cardtitle">Results</Card.Title>
             <br />
-            <br />
-            <br />
-            <br />
+
+            {showGuage && (
+              <div className="d-flex justify-content-center">
+                <Chart
+                  className="gauge"
+                  chartType="Gauge"
+                  width="300px"
+                  height="300px"
+                  data={[
+                    ['Label', 'Value'],
+                    ['SENTIMENT', comp],
+                  ]}
+                  options={guageOptions}
+                />
+              </div>
+            )}
             <hr />
             <br />
             <br />

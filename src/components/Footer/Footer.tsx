@@ -11,9 +11,18 @@ const Footer: React.FC = () => {
             href="https://sites.google.com/lyft.com/outreachinnovation/home?authuser=0"
             target="_blank"
             rel="noopener noreferrer"
-            className="float-right footer"
           >
             Outreach Innovation
+          </a>
+        </Nav.Item>
+        <Nav.Item>
+          Questions? Contact:{' '}
+          <a
+            href="https://lyft.enterprise.slack.com/user/@WJMFR38SX"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chris Spann
           </a>
         </Nav.Item>
       </Navbar>
