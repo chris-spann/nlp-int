@@ -41,6 +41,27 @@ const SentForm: React.FC<Props> = (sents) => {
     minorTicks: 1,
   };
 
+  const columns = [
+    {
+      name: 'lyft_id',
+      selector: 'lyft_id',
+      sortable: false,
+      right: true,
+      maxWidth: '170px',
+    },
+    {
+      name: 'compound',
+      selector: 'compound',
+      sortable: true,
+      maxWidth: '75px',
+    },
+    {
+      name: 'message',
+      selector: 'message',
+      sortable: false,
+    },
+  ];
+
   const handleChange = (event: any) => {
     setShowReportGuage(false);
     setText((event.target as HTMLInputElement).value);
@@ -102,26 +123,7 @@ const SentForm: React.FC<Props> = (sents) => {
     // Setting the input box back to empty
     // setFilePath("")
   };
-  const columns = [
-    {
-      name: 'lyft_id',
-      selector: 'lyft_id',
-      sortable: false,
-      right: true,
-      maxWidth: '170px',
-    },
-    {
-      name: 'compound',
-      selector: 'compound',
-      sortable: true,
-      maxWidth: '75px',
-    },
-    {
-      name: 'message',
-      selector: 'message',
-      sortable: false,
-    },
-  ];
+
   return (
     <>
       <CardGroup>
@@ -197,9 +199,8 @@ const SentForm: React.FC<Props> = (sents) => {
             <br />
             <br />
             <br />
-
-            {showGuage && (
-              <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
+              {showGuage && (
                 <Chart
                   className="gauge"
                   chartType="Gauge"
@@ -211,10 +212,10 @@ const SentForm: React.FC<Props> = (sents) => {
                   ]}
                   options={guageOptions}
                 />
-              </div>
-            )}
-            {showReportGuage && !showGuage && (
-              <div className="d-flex justify-content-center">
+              )}
+            </div>
+            <div className="d-flex justify-content-center">
+              {showReportGuage && !showGuage && (
                 <Chart
                   className="gauge"
                   chartType="Gauge"
@@ -226,8 +227,8 @@ const SentForm: React.FC<Props> = (sents) => {
                   ]}
                   options={guageOptions}
                 />
-              </div>
-            )}
+              )}
+            </div>
             <br />
             <br />
             <br />
