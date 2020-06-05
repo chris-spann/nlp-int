@@ -8,7 +8,7 @@ import './MatcherForm.css';
 interface Props {
   phrases?: string;
   matches?: {
-    lyft_id: string;
+    lyft_id: BigInteger;
     message: string;
   };
 }
@@ -92,6 +92,7 @@ const MatcherForm: React.FC<Props> = (matches, phrases) => {
                   placeholder="Path to file..."
                   onChange={handleFilePathChange}
                   spellCheck="false"
+                  data-gramm="false"
                 />
 
                 <Button id="matchbutton" variant="primary" type="submit">
@@ -101,10 +102,18 @@ const MatcherForm: React.FC<Props> = (matches, phrases) => {
               <hr />
               <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
               <br />
-              <br />
               <Card.Text>
                 This is the PhraseMatcher. You can enter some phrases you'd like
-                to search for here.
+                to search for here. Fusce sapien massa, eleifend et nunc ut,
+                aliquam molestie enim. Donec consequat sed mauris a gravida. Sed
+                a lectus in justo auctor dictum.
+              </Card.Text>
+              <Card.Text>
+                Pellentesque habitant morbi tristique senectus et netus et
+                malesuada fames ac turpis egestas. Sed maximus elit at purus
+                tempus consequat. Maecenas posuere mattis nunc, sed placerat
+                tellus blandit at. Etiam placerat odio est, vel interdum quam
+                porttitor et.
               </Card.Text>
             </div>
           </Card.Body>

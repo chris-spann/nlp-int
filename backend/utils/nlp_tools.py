@@ -24,6 +24,31 @@ class Sentiment:
         return analyzer.polarity_scores(self.string)
 
 
+class SentimentReport:
+    def __init__(self, filepath):
+        self.filepath = filepath
+        self.data = pd.read_csv(self.filepath, sep='^([^,]+),',
+                                engine='python',
+                                usecols=['lyft_id', 'message'])
+        self.df = self.data.copy(deep=True)
+        self._pre_process()
+        self.get_sentiment()
+        self.data_json = self.df.to_json(orient="records")
+        self.avg_sent = round(self.df['compound'].mean(), 4)
+
+    def _pre_process(self):
+        self.data = pd.read_csv(self.filepath)
+
+    def get_sentiment(self):
+        analyzer = SentimentIntensityAnalyzer()
+        self.df['scores'] = self.df['message'].apply(
+            lambda message: analyzer.polarity_scores(str(message)))
+        self.df['compound'] = self.df['scores'].apply(
+            lambda score_dict: score_dict['compound'])
+        self.df['comp_score'] = self.df['compound'].apply(
+            lambda c: 'pos' if c >= 0.05 else ('neg' if c <= -0.05 else 'neu'))
+
+
 class MatchReport:
     def __init__(self, filepath, phrases):
         self.filepath = filepath

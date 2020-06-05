@@ -57,14 +57,57 @@
 #sentarea:focus {
   border-color: #420499;
   box-shadow: 0 0 4px #420499;
+  transform: scale(1.03);
+}
+.panel-text a {
+  color: #604cff;
+}
+.panel-text a:hover {
+  color: #420499;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #420499;
+  border-color: #420499;
+}
+.custom-control-input ~ .custom-control-label:after {
+  background-color: #420499;
+  border-color: #420499;
+}
+#filePathField {
+  margin-bottom: 5px;
+  border-radius: 1.5rem;
+  transition: 0.2s ease-in-out;
+}
+#filePathField:focus {
+  border-color: #420499;
+  box-shadow: 0 0 4px #420499;
+}
+#filePathField:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 4px #420499;
+}
+#dlbutton {
+  background-color: #604cff;
+  border-color: #604cff;
+  border-radius: 1.5rem;
+  transition: 0.2s ease-in-out;
+}
+#dlbutton:active {
+  background-color: #420499;
+  border-color: #420499;
+  box-shadow: 0 0 4px #420499;
+  transition: 0.1s ease-in-out;
+  transform: scale(1.03);
+}
+#dlbutton:focus {
+  /* background-color: #420499; */
+  border-color: #420499;
+  box-shadow: 0 0 4px #420499;
   /* transform: scale(1.03); */
 }
-.custom-control-label:before {
-  background-color: #c8cbfc;
-}
-.custom-control-input:after {
-  background-color: #c8cbfc;
-}
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: black;
+#dlbutton:hover {
+  /* background-color: #420499; */
+  border-color: #420499;
+  box-shadow: 0 0 4px #420499;
+  transform: scale(1.03);
 }

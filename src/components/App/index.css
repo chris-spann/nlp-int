@@ -23,17 +23,26 @@ body {
   background-color: #c8cbfc;
   border-color: #604cff;
   color: white;
-  transition: 0.2s ease-in-out;
+  transition: 0.16s ease-in-out;
 }
-
-.nav-tabs .nav-link.active {
+.nav-item:focus {
+  border-color: #604cff;
+}
+.nav-link:active {
   color: white;
   background-color: #420499;
   border-color: #420499;
   box-shadow: none;
 }
-a:hover {
+nav-link:hover {
   color: white;
-  text-decoration: underline;
+  border-color: #420499;
   transform: scale(1.02);
+}
+.nav-link.active {
+  color: #420499 !important;
+  text-decoration: underline;
+}
+a:hover {
+  color: #420499;
 }

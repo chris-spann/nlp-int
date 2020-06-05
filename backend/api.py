@@ -1,5 +1,5 @@
 from flask import Flask, request
-from utils.nlp_tools import Sentiment, MatchReport, FrequencyReport
+from utils.nlp_tools import Sentiment, SentimentReport, MatchReport, FrequencyReport
 
 app = Flask(__name__)
 
@@ -15,6 +15,16 @@ def get_sentiment():
         "pos": sent.pos,
         "neu": sent.neu,
         "neg": sent.neg}
+
+
+@app.route('/get_sentiment_report', methods=['GET', 'POST'])
+def get_report():
+    req = request.get_json()
+    filepath = req['filepath']
+    sr = SentimentReport(filepath)
+    return {
+        'sents': sr.data_json,
+        'avgSent': sr.avg_sent}
 
 
 @app.route('/get_matches', methods=['GET', 'POST'])

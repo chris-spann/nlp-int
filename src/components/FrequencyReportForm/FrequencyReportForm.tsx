@@ -43,31 +43,35 @@ const FrequencyReportForm: React.FC = () => {
         className="match-card text-center"
         style={{ width: '26rem', height: '38rem' }}
       >
+        <Card.Title id="cardtitle">FrequencyReport</Card.Title>
         <Card.Body>
-          <div className="App">
-            <Card.Title id="cardtitle">FrequencyReport</Card.Title>
-            <br />
-            <Form onSubmit={formSubmit} spellCheck="false">
-              <Form.Control
-                type="text"
-                id="filePathField"
-                value={filePath}
-                placeholder="Path to file..."
-                onChange={handleFilePathChange}
-              />
+          <br />
+          <Form onSubmit={formSubmit} spellCheck="false">
+            <Form.Control
+              type="text"
+              id="filePathField"
+              value={filePath}
+              placeholder="Path to file..."
+              onChange={handleFilePathChange}
+            />
 
-              <Button id="matchbutton" variant="primary" type="submit">
-                Get Report!
-              </Button>
-            </Form>
-            <hr />
-            <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
-            <br />
-            <br />
-            <Card.Text>
-              This is the FrequencyReport. Upload a file to analyze.
-            </Card.Text>
-          </div>
+            <Button id="matchbutton" variant="primary" type="submit">
+              Get Report!
+            </Button>
+          </Form>
+          <hr />
+          <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
+          <br />
+          <Card.Text>
+            This is the FrequencyReport. Upload a file to analyze.
+          </Card.Text>
+          <Card.Text>
+            Fusce sapien massa, eleifend et nunc ut, aliquam molestie enim.
+            Donec consequat sed mauris a gravida. Sed a lectus in justo auctor
+            dictum. Nullam semper, leo et venenatis vehicula, mi nibh luctus
+            urna, vel placerat nibh neque sit amet magna. Sed pharetra enim eget
+            nulla imperdiet, in vulputate ligula rhoncus.
+          </Card.Text>
         </Card.Body>
       </Card>
       <Card

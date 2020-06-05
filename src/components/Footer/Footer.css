@@ -1,22 +1,14 @@
 .foot {
   background-color: #420499;
+  text-decoration: none;
+  transform: none;
 }
 
-.footer {
-  /* color: white; */
-  text-decoration: none;
-  transform: none;
-}
-.footer:hover {
-  color: white;
-  text-decoration: none;
-  transform: none;
-}
-a {
-  color: white;
+.footlink {
   background-color: #420499;
+  color: white;
 }
-a:hover {
+.footlink:hover {
+  color: #c8cbfc;
   text-decoration: none;
-  transform: none;
 }

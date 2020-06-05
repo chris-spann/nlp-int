@@ -1,7 +1,10 @@
 .txt {
   color: white;
 }
-.navbar {
-  padding: 0 0 0 0;
-  background-color: #420499;
+.MuiAppBar-colorPrimary {
+  color: #fff;
+  background-color: #420499 !important;
+}
+.MuiTypography-h6 {
+  font-family: LyftPro-Regular !important;
 }

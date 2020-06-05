@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { Card, CardGroup, CardDeck, Button, Form } from 'react-bootstrap';
+import { Card, CardGroup, Button, Form } from 'react-bootstrap';
 import Chart from 'react-google-charts';
+import DataTable from 'react-data-table-component';
 import './SentForm.css';
 
-const SentForm: React.FC = () => {
+interface Props {
+  avg_sent?: BigInteger;
+  sents?: {
+    lyft_id: BigInteger;
+    message: string;
+    compound: BigInteger;
+    scores: string;
+  };
+}
+
+const SentForm: React.FC<Props> = (sents) => {
   const [text, setText] = useState('');
   const [comp, setComp] = useState(0);
+  const [avgSent, setAvgSent] = useState(0);
+  const [filePath, setFilePath] = useState('');
   const [showGuage, setShowGuage] = useState(false);
+  const [showReportGuage, setShowReportGuage] = useState(false);
+  const [response, setResponse] = useState([] as any);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const guageOptions = {
     min: -1.0,
@@ -26,14 +42,24 @@ const SentForm: React.FC = () => {
   };
 
   const handleChange = (event: any) => {
-    setText(event.target.value);
-    if (text === '') {
-      setShowGuage(true);
+    setShowReportGuage(false);
+    setText((event.target as HTMLInputElement).value);
+  };
+
+  const handleFilePathChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    if (inputRef && inputRef.current) {
+      setFilePath(inputRef.current.value);
     }
   };
 
-  const formSubmit = (event: any) => {
+  const formSubmit: React.FormEventHandler = (event) => {
     event.preventDefault();
+    event.stopPropagation();
+    if (showGuage === false) {
+      setShowGuage(true);
+    }
     console.log('Submitted: ' + text);
     axios
       .post('/get_sentiment', {
@@ -51,6 +77,51 @@ const SentForm: React.FC = () => {
     // Setting the input box back to empty
     // setText("")
   };
+  const batchFormSubmit: React.FormEventHandler = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setShowGuage(false);
+    setShowReportGuage(true);
+    console.log('Starting SENTIMENT ANALYZER...');
+    console.log('Submitted filepath: ' + filePath);
+    axios
+      .post('/get_sentiment_report', {
+        filepath: filePath,
+      })
+      .then((res) => {
+        setResponse(JSON.parse(res.data.sents));
+        setAvgSent(parseFloat(res.data.avgSent));
+        console.log(res.status);
+        console.log(res.data.sents);
+        console.log(res.data.avgSent);
+        console.log('Ending SENTIMENT ANALYZER.');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // Setting the input box back to empty
+    // setFilePath("")
+  };
+  const columns = [
+    {
+      name: 'lyft_id',
+      selector: 'lyft_id',
+      sortable: false,
+      right: true,
+      maxWidth: '170px',
+    },
+    {
+      name: 'compound',
+      selector: 'compound',
+      sortable: true,
+      maxWidth: '75px',
+    },
+    {
+      name: 'message',
+      selector: 'message',
+      sortable: false,
+    },
+  ];
   return (
     <>
       <CardGroup>
@@ -63,23 +134,18 @@ const SentForm: React.FC = () => {
               <Card.Title id="cardtitle">Sentiment</Card.Title>
               <br />
               <Form onSubmit={formSubmit}>
-                <Form.Check
-                  type="switch"
-                  id="custom-switch"
-                  className="switch"
-                  label="Batch"
-                />
                 <br />
                 <Form.Control
-                  as="textarea"
-                  name="text"
+                  ref={inputRef}
+                  type="text"
                   id="sentarea"
-                  value={text}
+                  value={text || ''}
                   data-gramm="false"
                   placeholder="Type something!"
                   onChange={handleChange}
                   style={{
-                    resize: 'none',
+                    resize: 'vertical',
+                    // minHeight: 59,
                     overflowY: 'scroll',
                   }}
                 />
@@ -90,14 +156,34 @@ const SentForm: React.FC = () => {
                   </Button>
                 </div>
               </Form>
+              <Form onSubmit={batchFormSubmit}>
+                <br />
+                <Form.Control
+                  ref={inputRef}
+                  type="text"
+                  id="filePathField"
+                  value={filePath || ''}
+                  onChange={handleFilePathChange}
+                  data-gramm="false"
+                  placeholder="Path to file..."
+                  spellCheck="false"
+                />
+                <br />
+                <div unselectable="on">
+                  <Button id="sentbutton" variant="primary" type="submit">
+                    Get Sentiment Report!
+                  </Button>
+                </div>
+              </Form>
               <hr />
               <Card.Subtitle id="cardsubtitle">How To:</Card.Subtitle>
               <br />
-              <br />
-              <Card.Text>
-                This is the SentimentAnalyzer. You can enter some tet you'd like
-                to analyze above. Flip the switch to Batch to upload a .csv to
-                analyze.
+              <Card.Text className="panel-text">
+                This is the SentimentAnalyzer. You can enter some text you'd
+                like to analyze above. Flip the switch to Batch to upload a .csv
+                to analyze. Probaly will include some more details about what
+                this does. A <a href="/">link</a> to more resources would be
+                nice too!
               </Card.Text>
             </div>
           </Card.Body>
@@ -107,7 +193,9 @@ const SentForm: React.FC = () => {
           style={{ width: '26em', height: '38em' }}
         >
           <Card.Body>
-            <Card.Title id="cardtitle">Results</Card.Title>
+            <Card.Title id="cardtitle">Score</Card.Title>
+            <br />
+            <br />
             <br />
 
             {showGuage && (
@@ -125,14 +213,48 @@ const SentForm: React.FC = () => {
                 />
               </div>
             )}
-            <hr />
+            {showReportGuage && !showGuage && (
+              <div className="d-flex justify-content-center">
+                <Chart
+                  className="gauge"
+                  chartType="Gauge"
+                  width="300px"
+                  height="300px"
+                  data={[
+                    ['Label', 'Value'],
+                    ['SENTIMENT', avgSent],
+                  ]}
+                  options={guageOptions}
+                />
+              </div>
+            )}
             <br />
             <br />
             <br />
             <br />
-            <Button id="sentbutton" variant="primary">
-              Download
-            </Button>
+          </Card.Body>
+        </Card>
+        <Card
+          className="match-card text-center"
+          style={{ width: '26rem', height: '38rem' }}
+        >
+          <Card.Body>
+            <DataTable
+              className="dataTable"
+              title="Messages"
+              columns={columns}
+              data={response}
+              dense={true}
+              fixedHeader
+              fixedHeaderScrollHeight="700px"
+              overflowY={true}
+              striped={true}
+            />
+            <Form>
+              <Button id="dlbutton" variant="primary" type="submit">
+                Download
+              </Button>
+            </Form>
           </Card.Body>
         </Card>
       </CardGroup>

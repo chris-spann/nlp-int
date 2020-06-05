@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.10.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -11,9 +12,12 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-table": "^7.0.17",
+    "@types/yup": "^0.29.0",
     "axios": "^0.19.2",
+    "bs-custom-file-input": "^1.3.4",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
+    "formik": "^2.1.4",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
@@ -21,11 +25,14 @@
     "react-data-table-component": "^6.9.1",
     "react-dom": "^16.13.1",
     "react-google-charts": "^3.0.15",
+    "react-hook-form": "^5.7.2",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-table": "^7.1.0",
     "react-tabs": "^3.1.0",
     "styled-components": "^5.1.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "yup": "^0.29.0"
   },
   "scripts": {
     "start": "react-scripts start",
