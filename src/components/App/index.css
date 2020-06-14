@@ -19,30 +19,20 @@ body {
   font-family: LyftPro-Regular;
   background-color: white;
 }
-.nav-item {
-  background-color: #c8cbfc;
-  border-color: #604cff;
+
+.txt {
   color: white;
-  transition: 0.16s ease-in-out;
 }
-.nav-item:focus {
-  border-color: #604cff;
+.MuiAppBar-colorPrimary {
+  color: #fff;
+  background-color: #420499 !important;
 }
-.nav-link:active {
-  color: white;
-  background-color: #420499;
-  border-color: #420499;
-  box-shadow: none;
+.MuiTypography-h6 {
+  font-family: LyftPro-Regular !important;
 }
-nav-link:hover {
-  color: white;
-  border-color: #420499;
-  transform: scale(1.02);
-}
-.nav-link.active {
-  color: #420499 !important;
-  text-decoration: underline;
-}
-a:hover {
-  color: #420499;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }

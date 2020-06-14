@@ -4,10 +4,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import SentForm from '../SentForm/SentForm';
-import FrequencyReportForm from '../FrequencyReportForm/FrequencyReportForm';
-import MatcherForm from '../MatcherForm/MatcherForm';
-import BatchSentiment from '../BatchSentiment/BatchSentiment';
+import SentForm from './components/SentForm/SentForm';
+import FrequencyReportForm from './components/FrequencyReportForm/FrequencyReportForm';
+import MatcherForm from './components/MatcherForm/MatcherForm';
+import BatchSentiment from './components/BatchSentiment/BatchSentiment';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -100,7 +100,7 @@ const Tools = () => {
         />
         <Tab className={classes.tab} label="Tool #5" {...a11yProps(4)} />
         <Tab className={classes.tab} label="Tool #6" {...a11yProps(5)} />
-        <Tab className={classes.tab} label="Tool #7" {...a11yProps(6)} />
+        <Tab className={classes.tab} label="Contact" {...a11yProps(6)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         {/* <FrequencyReportForm /> */}
@@ -121,7 +121,16 @@ const Tools = () => {
         Item Six
       </TabPanel>
       <TabPanel value={value} index={6}>
-        Item Seven
+        <pre>
+          Questions? Contact:{' '}
+          <a
+            href="https://lyft.enterprise.slack.com/user/@WJMFR38SX"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chris Spann
+          </a>
+        </pre>
       </TabPanel>
     </div>
   );
