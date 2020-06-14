@@ -8,3 +8,9 @@
 .MuiTypography-h6 {
   font-family: LyftPro-Regular !important;
 }
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

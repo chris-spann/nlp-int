@@ -6,12 +6,13 @@ interface WrapperProps {
   children: React.ReactNode;
 }
 
-export default function Wrapper({ children }: WrapperProps) {
+const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>{children}</Toolbar>
     </AppBar>
   );
-}
+};
 
 /* @__PURE__*/ Object.assign(Wrapper, { displayName: 'Wrapper' });
+export default Wrapper;
