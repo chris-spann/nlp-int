@@ -104,18 +104,10 @@ const App: React.FC = () => {
               label="Conversations"
               {...a11yProps(3)}
             />
-            <Tab
-              className={classes.tab}
-              label="Tools"
-              // icon={bars}
-              {...a11yProps(4)}
-            />
+            <Tab className={classes.tab} label="Tools" {...a11yProps(4)} />
           </Tabs>
-          {/* <img src={icon}></img> */}
           <Stretch />
         </Wrapper>
-        {/* Push content below Header */}
-
         <TabPanel value={value} index={0}></TabPanel>
         <TabPanel value={value} index={1}></TabPanel>
         <TabPanel value={value} index={2}></TabPanel>

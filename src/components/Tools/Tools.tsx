@@ -98,8 +98,8 @@ const Tools = () => {
           label="Batch Sentiment"
           {...a11yProps(3)}
         />
-        <Tab className={classes.tab} label="Tool #5" {...a11yProps(4)} />
-        <Tab className={classes.tab} label="Tool #6" {...a11yProps(5)} />
+        <Tab className={classes.tab} label="LDA Modeler" {...a11yProps(4)} />
+        <Tab className={classes.tab} label="NNMF Modeler" {...a11yProps(5)} />
         <Tab className={classes.tab} label="Contact" {...a11yProps(6)} />
       </Tabs>
       <TabPanel value={value} index={0}>
@@ -115,10 +115,10 @@ const Tools = () => {
         <BatchSentiment />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Tool #4
+        Latent Dirichlet Allocation
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Item Six
+        Non-Negative Matrix Factorization
       </TabPanel>
       <TabPanel value={value} index={6}>
         <pre>

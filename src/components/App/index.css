@@ -30,7 +30,15 @@ body {
 .MuiTypography-h6 {
   font-family: LyftPro-Regular !important;
 }
-
+.MuiTypography-h5 {
+  font-family: LyftPro-Bold !important;
+}
+.MuiTypography-h4 {
+  font-family: LyftPro-Regular !important;
+}
+.MuiTypography-h3 {
+  font-family: LyftPro-Regular !important;
+}
 .layout {
   display: flex;
   flex-direction: column;

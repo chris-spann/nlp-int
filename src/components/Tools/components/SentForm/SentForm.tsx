@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Button, Paper, TextField } from '@material-ui/core';
+import { Button, Paper, TextField, Typography } from '@material-ui/core';
 import Chart from 'react-google-charts';
 import './SentForm.css';
 
@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) =>
     textField: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      width: '25ch',
     },
     root: {
       display: 'flex',
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'LyftPro-Regular',
       '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: '95%',
       },
     },
   })
@@ -88,45 +87,51 @@ const SentForm: React.FC<Props> = (sents) => {
   return (
     <>
       <div className="cards">
-        <Paper variant="outlined" style={{ width: '32rem', height: '38rem' }}>
+        <Paper variant="outlined" style={{ width: '37rem', height: '38rem' }}>
           <form
             className={classes.root}
             noValidate
             autoComplete="off"
             onSubmit={formSubmit}
           >
-            <h3>Sentiment Calulator</h3>
-
+            <Typography variant="h5">Sentiment Calulator</Typography>
             <TextField
-              id="standard-basic"
+              id="standard-required"
               label="Type Something..."
               value={text || ''}
               onChange={handleChange}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: '#420499',
+                color: 'white',
+              }}
+              type="submit"
+            >
               Get Sentiment
             </Button>
           </form>
           <br />
-          <div className="d-flex justify-content-center">
-            {showGuage && (
-              <div>
-                <TextField value={text} />
 
-                <Chart
-                  className="gauge"
-                  chartType="Gauge"
-                  width="300px"
-                  height="300px"
-                  data={[
-                    ['Label', 'Value'],
-                    ['SENTIMENT', comp],
-                  ]}
-                  options={guageOptions}
-                />
-              </div>
-            )}
-          </div>
+          {showGuage && (
+            <div className={classes.root}>
+              <TextField value={text} rowsMax={3} />
+              <hr />
+
+              <Chart
+                className="gauge"
+                chartType="Gauge"
+                width="300px"
+                height="300px"
+                data={[
+                  ['Label', 'Value'],
+                  ['SENTIMENT', comp],
+                ]}
+                options={guageOptions}
+              />
+            </div>
+          )}
         </Paper>
       </div>
     </>
