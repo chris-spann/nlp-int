@@ -130,7 +130,7 @@ const BatchSentiment: React.FC<Props> = (sents) => {
   return (
     <>
       <div className="cards">
-        <Paper variant="outlined" style={{ width: '37rem', height: '38rem' }}>
+        <Paper variant="outlined" style={{ width: '22rem', height: '38rem' }}>
           <form
             className={classes.root}
             noValidate
@@ -172,7 +172,7 @@ const BatchSentiment: React.FC<Props> = (sents) => {
             )}
           </div>
         </Paper>
-        <Paper variant="outlined" style={{ width: '60rem', height: '38rem' }}>
+        <Paper variant="outlined" style={{ width: '45rem', height: '35rem' }}>
           <Typography
             align="center"
             style={{ paddingTop: 10, paddingBottom: 10 }}

@@ -87,7 +87,7 @@ const SentForm: React.FC<Props> = (sents) => {
   return (
     <>
       <div className="cards">
-        <Paper variant="outlined" style={{ width: '37rem', height: '38rem' }}>
+        <Paper variant="outlined" style={{ width: '22rem', height: '38rem' }}>
           <form
             className={classes.root}
             noValidate
@@ -117,7 +117,6 @@ const SentForm: React.FC<Props> = (sents) => {
           {showGuage && (
             <div className={classes.root}>
               <TextField value={text} rowsMax={3} />
-              <hr />
 
               <Chart
                 className="gauge"

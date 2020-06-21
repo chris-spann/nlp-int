@@ -103,10 +103,10 @@ const Tools = () => {
         <Tab className={classes.tab} label="Contact" {...a11yProps(6)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        {/* <FrequencyReportForm /> */}
+        <FrequencyReportForm />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {/* <MatcherForm /> */}
+        <MatcherForm />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <SentForm />
