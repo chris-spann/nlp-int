@@ -14,5 +14,5 @@ const Wrapper = ({ children }: WrapperProps) => {
   );
 };
 
-/* @__PURE__*/ Object.assign(Wrapper, { displayName: 'Wrapper' });
+Object.assign(Wrapper, { displayName: 'Wrapper' });
 export default Wrapper;

@@ -7,20 +7,15 @@ import './SentForm.css';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
+    textField: {},
     root: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      flexWrap: 'wrap',
       flexGrow: 1,
       fontFamily: 'LyftPro-Regular',
       '& > *': {
         margin: theme.spacing(1),
-        width: '95%',
       },
     },
   })
@@ -43,6 +38,7 @@ const SentForm: React.FC<Props> = (sents) => {
   const [showGuage, setShowGuage] = useState(false);
 
   const guageOptions = {
+    tooltip: { textStyle: { fontName: 'Lucida Console', fontSize: 2 } },
     min: -1.0,
     max: 1.0,
     greenColor: '0dc98b',
@@ -99,6 +95,7 @@ const SentForm: React.FC<Props> = (sents) => {
               id="standard-required"
               label="Type Something..."
               value={text || ''}
+              fullWidth={true}
               onChange={handleChange}
             />
             <Button
@@ -116,16 +113,16 @@ const SentForm: React.FC<Props> = (sents) => {
 
           {showGuage && (
             <div className={classes.root}>
-              <TextField value={text} rowsMax={3} />
+              <TextField fullWidth={true} value={text} rowsMax={3} />
 
               <Chart
                 className="gauge"
                 chartType="Gauge"
-                width="300px"
-                height="300px"
+                width="15em"
+                height="15em"
                 data={[
                   ['Label', 'Value'],
-                  ['SENTIMENT', comp],
+                  ['Sentiment', comp],
                 ]}
                 options={guageOptions}
               />

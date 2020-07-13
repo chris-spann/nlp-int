@@ -13,9 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       border: 'none',
       outline: 'none',
+      height: 3,
     },
     tab: {
       fontFamily: 'LyftPro-Regular',
+      fontSize: 12,
       textTransform: 'none',
     },
     textField: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       width: '25ch',
     },
+    toolbar: theme.mixins.toolbar,
     root: {
       display: 'flex',
       flexDirection: 'column',
@@ -32,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1),
         width: '25ch',
       },
+      minHeight: '50px',
     },
   })
 );
@@ -79,12 +83,12 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className="layout">
+      <div className={classes.tab}>
         <Wrapper>
           <a href="/">
-            <img alt="" src={logo} width="60" height="60" />
-            <Typography variant="h6" className="d-inline-block txt">
-              Jarvis
+            <img alt="" src={logo} width="72" height="50" />
+            <Typography variant="subtitle2" className="d-inline-block txt">
+              JARVIS
             </Typography>
           </a>
           <Stretch />
@@ -108,6 +112,7 @@ const App: React.FC = () => {
           </Tabs>
           <Stretch />
         </Wrapper>
+        {/* <div className={classes.toolbar} /> */}
         <TabPanel value={value} index={0}></TabPanel>
         <TabPanel value={value} index={1}></TabPanel>
         <TabPanel value={value} index={2}></TabPanel>

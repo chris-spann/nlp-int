@@ -2,24 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
-import Chart from 'react-google-charts';
 import tableIcons from '../../../App/TableIcons';
 import MaterialTable from 'material-table';
-import './BatchSentiment.css';
-import { red } from '@material-ui/core/colors';
+import './Nnmf.css';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    textField: {},
     root: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      '& > *': {
-        margin: theme.spacing(1),
-        // width: '95%',
-      },
       flexGrow: 1,
       fontFamily: 'LyftPro-Regular',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
     },
   })
 );
@@ -34,57 +32,32 @@ interface Props {
   };
 }
 
-const BatchSentiment: React.FC<Props> = (sents) => {
+const Nnmf: React.FC<Props> = (sents) => {
   const classes = useStyles();
-  const [avgSent, setAvgSent] = useState(0);
   const [filePath, setFilePath] = useState('');
-  const [showReportGuage, setShowReportGuage] = useState(false);
   const [response, setResponse] = useState([] as any);
+  const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const guageOptions = {
-    min: -1.0,
-    max: 1.0,
-    greenColor: '0dc98b',
-    greenFrom: 0.3,
-    greenTo: 1.0,
-    yellowColor: 'ffd952',
-    yellowFrom: -0.3,
-    yellowTo: 0.3,
-    redColor: 'ff4c4d',
-    redFrom: -1.0,
-    redTo: -0.3,
-    majorTicks: ['-1.0', '1.0'],
-    minorTicks: 1,
-    titleTextStyle: {
-      color: red,
-    },
-  };
-
   const handleChange = (event: any) => {
-    setShowReportGuage(false);
     setFilePath((event.target as HTMLInputElement).value);
   };
 
-  const batchFormSubmit: React.FormEventHandler = (event) => {
+  const formSubmit: React.FormEventHandler = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    setLoading(true);
-    setShowReportGuage(true);
-    console.log('Starting SENTIMENT ANALYZER...');
+    if (showResults === false) {
+      setShowResults(true);
+    }
     console.log('Submitted filepath: ' + filePath);
     axios
-      .post('/get_sentiment_report', {
+      .post('/get_nnmf', {
         filepath: filePath,
       })
       .then((res) => {
         setResponse(JSON.parse(res.data.sents));
-        setAvgSent(parseFloat(res.data.avgSent));
         setLoading(false);
-        console.log(res.status);
-        console.log(res.data.sents);
-        console.log(res.data.avgSent);
-        console.log('Ending SENTIMENT ANALYZER.');
+        setShowResults(false);
       })
       .catch((error) => {
         console.log(error);
@@ -99,9 +72,9 @@ const BatchSentiment: React.FC<Props> = (sents) => {
             className={classes.root}
             noValidate
             autoComplete="off"
-            onSubmit={batchFormSubmit}
+            onSubmit={formSubmit}
           >
-            <Typography variant="h5">Batch Sentiment Calulator</Typography>
+            <Typography variant="h5">Topic Modeler</Typography>
             <TextField
               id="standard-basic"
               label="Path to file..."
@@ -111,31 +84,22 @@ const BatchSentiment: React.FC<Props> = (sents) => {
             />
             <Button
               variant="contained"
-              type="submit"
               style={{
                 backgroundColor: '#420499',
                 color: 'white',
               }}
+              type="submit"
             >
               Get Sentiment
             </Button>
           </form>
           <br />
-          <div className="d-flex justify-content-center">
-            {showReportGuage && (
-              <Chart
-                className="gauge"
-                chartType="Gauge"
-                width="15em"
-                height="15em"
-                data={[
-                  ['Label', 'Value'],
-                  ['Sentiment', avgSent],
-                ]}
-                options={guageOptions}
-              />
-            )}
-          </div>
+
+          {showResults && (
+            <div className={classes.root}>
+              <TextField fullWidth={true} value={'text'} rowsMax={3} />
+            </div>
+          )}
         </Paper>
         <Paper variant="outlined" style={{ width: '45rem', height: '35rem' }}>
           <Typography
@@ -151,7 +115,7 @@ const BatchSentiment: React.FC<Props> = (sents) => {
             isLoading={loading}
             columns={[
               {
-                title: 'lyft_id',
+                title: 'Lyft ID',
                 field: 'lyft_id',
                 sorting: false,
                 width: 'auto',
@@ -164,7 +128,7 @@ const BatchSentiment: React.FC<Props> = (sents) => {
                 width: 'auto',
               },
               {
-                title: 'message',
+                title: 'Message',
                 field: 'message',
                 sorting: false,
                 width: 'auto',
@@ -206,4 +170,4 @@ const BatchSentiment: React.FC<Props> = (sents) => {
     </>
   );
 };
-export default BatchSentiment;
+export default Nnmf;

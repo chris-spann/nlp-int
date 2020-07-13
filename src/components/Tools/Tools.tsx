@@ -8,6 +8,7 @@ import SentForm from './components/SentForm/SentForm';
 import FrequencyReportForm from './components/FrequencyReportForm/FrequencyReportForm';
 import MatcherForm from './components/MatcherForm/MatcherForm';
 import BatchSentiment from './components/BatchSentiment/BatchSentiment';
+import Nnmf from './components/Nmnf/Nnmf';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
+    minHeight: '50px',
     // height: 224,
   },
   tabs: {
@@ -118,7 +120,7 @@ const Tools = () => {
         Latent Dirichlet Allocation
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Non-Negative Matrix Factorization
+        <Nnmf />
       </TabPanel>
       <TabPanel value={value} index={6}>
         <pre>

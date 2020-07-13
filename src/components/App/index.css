@@ -39,8 +39,14 @@ body {
 .MuiTypography-h3 {
   font-family: LyftPro-Regular !important;
 }
+.MuiTypography-subtitle2 {
+  font-family: LyftPro-Regular !important;
+}
 .layout {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+.MuiToolbar-regular {
+  min-height: 50px !important;
 }

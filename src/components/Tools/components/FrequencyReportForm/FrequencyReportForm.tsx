@@ -1,26 +1,9 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import './FrequencyReportForm.css';
-
-import AddBox from '@material-ui/icons/AddBox';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
-import { Icons } from 'material-table';
+import tableIcons from '../../../App/TableIcons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       '& > *': {
         margin: theme.spacing(1),
-        width: '95%',
+        // width: '95%',
       },
       flexGrow: 1,
       fontFamily: 'LyftPro-Regular',
@@ -38,36 +21,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const tableIcons: Icons = {
-  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-  DetailPanel: forwardRef((props, ref) => (
-    <ChevronRight {...props} ref={ref} />
-  )),
-  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-  PreviousPage: forwardRef((props, ref) => (
-    <ChevronLeft {...props} ref={ref} />
-  )),
-  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
-  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-};
-
 const FrequencyReportForm: React.FC = () => {
   const classes = useStyles();
   const [filePath, setFilePath] = useState('');
   const [wordFreq, setWordFreq] = useState('');
-  const [bigramFreq, setBigramFreq] = useState('');
-  const [trigramFreq, setTrigramFreq] = useState('');
+  const [unsubs, setUnsubs] = useState(0);
+  const [lyftMentions, setLyftMentions] = useState(0);
+  const [taylorMentions, setTaylorMentions] = useState(0);
+  // const [bigramFreq, setBigramFreq] = useState('');
+  // const [trigramFreq, setTrigramFreq] = useState('');
   const [response, setResponse] = useState([] as any);
   const [loading, setLoading] = useState(false);
 
@@ -79,25 +41,29 @@ const FrequencyReportForm: React.FC = () => {
     event.preventDefault();
     console.log('Starting FrequencyReport...');
     console.log('Submitted filepath: ' + filePath);
+    setLoading(true);
     axios
       .post('/get_freq', {
         filepath: filePath,
       })
       .then((res) => {
-        setWordFreq(res.data.word_freq);
-        setBigramFreq(res.data.bigram_freq);
-        setTrigramFreq(res.data.Trigram_freq);
+        setResponse(JSON.parse(res.data.wordFreq));
+        setWordFreq(res.data.word_freq_json);
+        setUnsubs(parseFloat(res.data.unsubs));
+        setLyftMentions(parseFloat(res.data.lyftMentions));
+        setTaylorMentions(parseFloat(res.data.taylorMentions));
+        setLoading(false);
+        // setBigramFreq(res.data.bigram_freq_json);
+        // setTrigramFreq(res.data.trigram_freq_json);
         console.log(wordFreq);
-        console.log(bigramFreq);
-        console.log(trigramFreq);
+        // console.log(bigramFreq);
+        // console.log(trigramFreq);
 
         console.log('Ending FrequencyReport.');
       })
       .catch((error) => {
         console.log(error);
       });
-    // Setting the input box back to empty
-    // setFilePath("")
   };
   return (
     <>
@@ -113,8 +79,8 @@ const FrequencyReportForm: React.FC = () => {
             <TextField
               id="standard-basic"
               label="Path to file..."
-              // value={text || ''}
               onChange={handleFilePathChange}
+              fullWidth={true}
             />
             <Button
               variant="contained"
@@ -127,6 +93,9 @@ const FrequencyReportForm: React.FC = () => {
               Get Frequency
             </Button>
           </form>
+          <pre>Unsubs: {unsubs}</pre>
+          <pre>Lyft Mentions: {lyftMentions}</pre>
+          <pre>Taylor Mentions: {taylorMentions}</pre>
         </Paper>
         <Paper variant="outlined" style={{ width: '45rem', height: '35rem' }}>
           <Typography
@@ -143,7 +112,7 @@ const FrequencyReportForm: React.FC = () => {
             columns={[
               {
                 title: 'Word',
-                field: 'word',
+                field: 'token',
                 sorting: false,
                 width: 'auto',
                 disableClick: true,
@@ -161,10 +130,6 @@ const FrequencyReportForm: React.FC = () => {
               },
             ]}
             data={response}
-            // style={{
-            //   fontFamily: 'LyftPro-Regular',
-            //   fontSize: '10',
-            // }}
             options={{
               showTitle: false,
               pageSize: 10,

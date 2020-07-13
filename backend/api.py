@@ -43,7 +43,8 @@ def get_freq():
     req = request.get_json()
     filepath = req['filepath']
     fr = FrequencyReport(filepath)
-    return {'word_freq': fr.word_freq_json,
-            'bigram_freq': fr.bigram_freq_json,
-            'trigram_freq': fr.trigram_freq_json
+    return {'wordFreq': fr.word_freq_json,
+            'unsubs': fr.unsubs,
+            'lyftMentions': fr.lyft_mentions,
+            'taylorMentions': fr.taylor_mentions
             }
